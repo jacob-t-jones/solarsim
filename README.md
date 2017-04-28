@@ -8,3 +8,7 @@ TODO:
   2. Drawing
   3. ???
   4. Profit!
+  
+Resources:
+http://www.compadre.org/OSP/document/ServeFile.cfm?ID=7375
+
