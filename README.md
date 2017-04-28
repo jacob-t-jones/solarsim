@@ -9,6 +9,8 @@ TODO:
   3. ???
   4. Profit!
   
+Java3D Docs: http://www2.seas.gwu.edu/~simhaweb/lin/draw3d/doc/index.html
+
 Resources:
 http://www.compadre.org/OSP/document/ServeFile.cfm?ID=7375
 
