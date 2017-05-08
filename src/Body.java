@@ -15,6 +15,14 @@ import java.io.*;
 import javax.imageio.*;
 import javafx.scene.image.Image;
 
+import java.util.*;
+
+// Universal Constants
+final static double INVERSE_G = 14983338500;
+final static double G         = 1 / INVERSE_G;
+final static double PI        = Math.PI;
+
+
 public class Body {
         // Coordinates
         double x, y, z;
@@ -24,8 +32,7 @@ public class Body {
         Color color;
 
         // Orbit Information
-        double period;
-        double e;
+        double period, e, parallaxAngle;
 
 
         public Body(double x, double y, double z, double radius, double mass, Color c) {
@@ -42,4 +49,6 @@ public class Body {
           return new Sphere3D(x, y, z, radius, material);
         }
 
+
+        // TODO
 }
