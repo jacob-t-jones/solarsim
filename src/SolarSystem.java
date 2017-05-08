@@ -15,54 +15,28 @@ import java.io.*;
 import javax.imageio.*;
 import javafx.scene.image.Image;
 
-public class SolarSystem extends Application implements Algorithm {
+public class SolarSystem implements Algorithm {
 
 	//The planets
-	static Body sun;
-	static Body earth;
+	Body sun;
+	Body earth;
 
-	static ArrayList<Body> bodies;
+	ArrayList<Body> bodies;
 
-	public static void main(String[] args) {
+	public SolarSystem() {
 
 		//Initialize planets
 		initPlanets();
-
-		startSimulation();
 	}
 
 
-	public static void initPlanets() {
+	public void initPlanets() {
 		sun = new Body(0.0, 0.0, 0.0, 3.0, 500.0, Color.YELLOW);
 		earth = new Body(20.0, 0.0, 0.0, 1.0, 500.0, Color.BLUE);
 
 		bodies = new ArrayList<Body>(); //an array to hold the bodies
 		bodies.add(sun);
 		bodies.add(earth);
-	}
-
-
-	public static void startSimulation() {
-		launch();
-	}
-
-
-	@Override //Required to start the window and scene
-	public void start(Stage stage) {
-
-		Draw3D draw3d = new Draw3D();
-
-		stage.setScene(draw3d.buildScene());
-
-		try {
-			draw3d.start(stage);
-		} catch (Exception e) {
-			System.out.println("Error ocurred while trying to start stage");
-			e.printStackTrace();
-		}
-
-		draw3d.setBackgroundColor(Color.BLACK);
-
 	}
 
 	//Interface methods
