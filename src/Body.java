@@ -19,6 +19,7 @@ import java.util.*;
 
 
 public class Body {
+  int id;
   // Universal Constants
   // final static long INVERSE_G = 14983338500;
   // final static double G         = 1.0 / INVERSE_G;
@@ -26,6 +27,7 @@ public class Body {
 
   // Coordinates
   double x, y, z;
+  double newX, newY, newZ;
 
   // Physical dimensions
   double mass, radius;
@@ -35,24 +37,41 @@ public class Body {
   double period, e, parallaxAngle, vel;
 
 
-  public Body(double x, double y, double z, double radius, double mass, Color c) {
+  public Body(int id, double x, double y, double z, double radius, double mass, Color c) {
+    this.id = id;
     this.x = x;
     this.y = y;
     this.z = z;
     this.mass = mass;
     this.radius = radius;
     this.color = c;
+    this.newX = this.x;
+    this.newY = this.y;
+    this.newZ = this.z;
   }
 
   //returns a Sphere3D object with the same coords as this body for drawing in the scene
   public Sphere3D createSphere() {
+    finalizePosition();
     PhongMaterial material = new PhongMaterial(color);
     return new Sphere3D(x, y, z, radius, material);
   }
 
   //update the x, y, z, for the body based on the gravitational forces from the other bodies
   public void updatePosition(ArrayList<Body> bodies) {
+    for (Body b: bodies) {
+      if (b.id != this.id) { //Check not the same body
+        //Position calculation
 
+      }
+    }
+  }
+
+  //Finalize the new position
+  public void finalizePosition() {
+    x = newX;
+    y = newY;
+    z = newZ;
   }
 
 

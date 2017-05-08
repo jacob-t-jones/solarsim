@@ -20,8 +20,12 @@ public class SolarSystem implements Algorithm {
 	//The planets
 	Body sun;
 	Body earth;
+	Body mercury, venus, mars, jupiter, saturn, uranus, neptune;
 
 	ArrayList<Body> bodies;
+
+	double x = - 10.0;
+	double y = 0.0;
 
 	public SolarSystem() {
 
@@ -31,12 +35,26 @@ public class SolarSystem implements Algorithm {
 
 
 	public void initPlanets() {
-		sun = new Body(0.0, 0.0, 0.0, 3.0, 500.0, Color.YELLOW);
-		earth = new Body(20.0, 0.0, 0.0, 1.0, 500.0, Color.BLUE);
+		sun = new Body(0, 0.0, 0.0, 0.0, 0.1, 500.0, Color.YELLOW);
+		mercury = new Body(1, 0.387, 0.0, 0.0, 0.1, 500, Color.GREY);
+		venus = new Body(2, 0.723, 0.0, 0.0, 0.1, 500.0, Color.ORANGE);
+		earth = new Body(3, 1.0, 0.0, 0.0, 0.1, 500.0, Color.BLUE);
+		mars = new Body(4, 1.524, 0.0, 0.0, 0.075, 500.0, Color.RED);
+		jupiter = new Body(5, 5.203, 0.0, 0.0, 2, 500.0, Color.ORANGE);
+		saturn = new Body(6, 9.537, 0.0, 0.0, 1.5, 500.0, Color.YELLOW);
+		uranus = new Body(7, 19.191, 0.0, 0.0, 1.25, 500.0, Color.BLUE);
+		neptune = new Body(8, 30.069, 0.0, 0.0, 1.25, 500.0, Color.GREEN);
 
 		bodies = new ArrayList<Body>(); //an array to hold the bodies
 		bodies.add(sun);
 		bodies.add(earth);
+		bodies.add(mercury);
+		bodies.add(venus);
+		bodies.add(mars);
+		bodies.add(jupiter);
+		bodies.add(saturn);
+		bodies.add(uranus);
+		bodies.add(neptune);
 	}
 
 	//Interface methods
@@ -45,8 +63,11 @@ public class SolarSystem implements Algorithm {
 	public Object processAlgorithm(int iteration) {
 
 		//update body positions
+		for (Body b: bodies) {
+			b.updatePosition(bodies);
+		}
 
-		//create spheres that can be drawn for the bodies
+		//finalize positions and create spheres that can be drawn for the bodies
 		Object[] sphereBodies = new Object[bodies.size()];
 		for (int i = 0; i < sphereBodies.length; i++) {
 			sphereBodies[i] = bodies.get(i).createSphere();
@@ -72,7 +93,7 @@ public class SolarSystem implements Algorithm {
 	}
 
 	public int getIterations() {
-		return 100;
+		return 1000;
 	}
 
 	public double[] getInfo() {
