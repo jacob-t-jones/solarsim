@@ -17,10 +17,6 @@ import javafx.scene.image.Image;
 
 public class SolarSystem extends Application implements Algorithm {
 
-	static Image earthImg;
-	static Image earthBumpImg;
-	static Image earthSpecImg;
-
 	//The planets
 	static Body sun;
 	static Body earth;
@@ -47,7 +43,7 @@ public class SolarSystem extends Application implements Algorithm {
 	}
 
 
-	@Override
+	@Override //Required to start the window and scene
 	public void start(Stage stage) {
 
 		Draw3D draw3d = new Draw3D();
@@ -66,6 +62,8 @@ public class SolarSystem extends Application implements Algorithm {
 	}
 
 	//Interface methods
+	//This is the main animation function - it is called at specific intervals by the GUI
+	//We just make it return the array ob objects we want to be drawn
 	public Object processAlgorithm(int iteration) {
 
 		//update body positions
