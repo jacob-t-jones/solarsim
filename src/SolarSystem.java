@@ -17,6 +17,9 @@ import javafx.scene.image.Image;
 
 public class SolarSystem implements Algorithm {
 
+	//Defaults
+	final double sunRadius = 3.0;
+
 	//The planets
 	Body sun;
 	Body earth;
@@ -35,15 +38,15 @@ public class SolarSystem implements Algorithm {
 
 
 	public void initPlanets() {
-		sun = new Body(0, 0.0, 0.0, 0.0, 0.1, 500.0, Color.YELLOW);
-		mercury = new Body(1, 0.387, 0.0, 0.0, 0.1, 500, Color.GREY);
-		venus = new Body(2, 0.723, 0.0, 0.0, 0.1, 500.0, Color.ORANGE);
-		earth = new Body(3, 1.0, 0.0, 0.0, 0.1, 500.0, Color.BLUE);
-		mars = new Body(4, 1.524, 0.0, 0.0, 0.075, 500.0, Color.RED);
-		jupiter = new Body(5, 5.203, 0.0, 0.0, 2, 500.0, Color.ORANGE);
-		saturn = new Body(6, 9.537, 0.0, 0.0, 1.5, 500.0, Color.YELLOW);
-		uranus = new Body(7, 19.191, 0.0, 0.0, 1.25, 500.0, Color.BLUE);
-		neptune = new Body(8, 30.069, 0.0, 0.0, 1.25, 500.0, Color.GREEN);
+		sun = new Body(0, 0.0, 0.0, 0.0, sunRadius, 500.0, Color.YELLOW, "Sun");
+		mercury = new Body(1, 0.387, 0.0, 0.0, 0.1, 500, Color.GREY, "Mercury");
+		venus = new Body(2, 0.723, 0.0, 0.0, 0.1, 500.0, Color.ORANGE, "Venus");
+		earth = new Body(3, 1.0, 0.0, 0.0, 0.1, 500.0, Color.BLUE, "Earth");
+		mars = new Body(4, 1.524, 0.0, 0.0, 0.075, 500.0, Color.RED, "Mars");
+		jupiter = new Body(5, 5.203, 0.0, 0.0, 2, 500.0, Color.ORANGE, "Jupiter");
+		saturn = new Body(6, 9.537, 0.0, 0.0, 1.5, 500.0, Color.YELLOW, "Saturn");
+		uranus = new Body(7, 19.191, 0.0, 0.0, 1.25, 500.0, Color.BLUE, "Uranus");
+		neptune = new Body(8, 30.069, 0.0, 0.0, 1.25, 500.0, Color.GREEN, "Neptune");
 
 		bodies = new ArrayList<Body>(); //an array to hold the bodies
 		bodies.add(sun);
@@ -68,9 +71,32 @@ public class SolarSystem implements Algorithm {
 		}
 
 		//finalize positions and create spheres that can be drawn for the bodies
-		Object[] sphereBodies = new Object[bodies.size()];
-		for (int i = 0; i < sphereBodies.length; i++) {
-			sphereBodies[i] = bodies.get(i).createSphere();
+		//we shift the x position for the planets by the sun radius to get better visual product
+		Object[] sphereBodies = new Object[bodies.size() * 2];
+		for (int i = 0; i < sphereBodies.length / 2; i++) {
+			Body b = bodies.get(i);
+			if (b.id != 0) {
+				//make label
+				Text3D label = new Text3D(b.x + sunRadius, b.y, b.z + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
+				label.setColor(Color.BLACK);
+
+				//make sphere
+				PhongMaterial material = new PhongMaterial(b.color);
+				Sphere3D sphere = new Sphere3D(b.x + sunRadius, b.y, b.z, b.radius, material);
+				sphereBodies[2 * i] = sphere;
+				sphereBodies[2 * i + 1] = label;
+			} else {
+				//make label
+				Text3D label = new Text3D(b.x, b.y, b.z + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
+				label.setColor(Color.BLACK);
+
+				//make sphere
+				PhongMaterial material = new PhongMaterial(b.color);
+				Sphere3D sphere = new Sphere3D(b.x, b.y, b.z, b.radius, material);
+				sphereBodies[2 * i] = sphere;
+				sphereBodies[2 * i + 1] = label;
+			}
+
 		}
 
 		return sphereBodies;

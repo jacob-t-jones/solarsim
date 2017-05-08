@@ -25,6 +25,8 @@ public class Body {
   // final static double G         = 1.0 / INVERSE_G;
   // final static double PI        = Math.PI;
 
+  String name;
+
   // Coordinates
   double x, y, z;
   double newX, newY, newZ;
@@ -37,7 +39,7 @@ public class Body {
   double period, e, parallaxAngle, vel;
 
 
-  public Body(int id, double x, double y, double z, double radius, double mass, Color c) {
+  public Body(int id, double x, double y, double z, double radius, double mass, Color c, String name) {
     this.id = id;
     this.x = x;
     this.y = y;
@@ -48,6 +50,7 @@ public class Body {
     this.newX = this.x;
     this.newY = this.y;
     this.newZ = this.z;
+    this.name = name;
   }
 
   //returns a Sphere3D object with the same coords as this body for drawing in the scene
