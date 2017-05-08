@@ -17,38 +17,48 @@ import javafx.scene.image.Image;
 
 import java.util.*;
 
-// Universal Constants
-final static double INVERSE_G = 14983338500;
-final static double G         = 1 / INVERSE_G;
-final static double PI        = Math.PI;
-
 
 public class Body {
-        // Coordinates
-        double x, y, z;
+  // Universal Constants
+  // final static long INVERSE_G = 14983338500;
+  // final static double G         = 1.0 / INVERSE_G;
+  // final static double PI        = Math.PI;
 
-        // Physical dimensions
-        double mass, radius;
-        Color color;
+  // Coordinates
+  double x, y, z;
 
-        // Orbit Information
-        double period, e, parallaxAngle;
+  // Physical dimensions
+  double mass, radius;
+  Color color;
 
-
-        public Body(double x, double y, double z, double radius, double mass, Color c) {
-          this.x = x;
-          this.y = y;
-          this.z = z;
-          this.mass = mass;
-          this.radius = radius;
-          this.color = c;
-        }
-
-        public Sphere3D createSphere() {
-          PhongMaterial material = new PhongMaterial(color);
-          return new Sphere3D(x, y, z, radius, material);
-        }
+  // Orbit Information
+  double period, e, parallaxAngle, vel;
 
 
-        // TODO
+  public Body(double x, double y, double z, double radius, double mass, Color c) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.mass = mass;
+    this.radius = radius;
+    this.color = c;
+  }
+
+  //returns a Sphere3D object with the same coords as this body for drawing in the scene
+  public Sphere3D createSphere() {
+    PhongMaterial material = new PhongMaterial(color);
+    return new Sphere3D(x, y, z, radius, material);
+  }
+
+  //update the x, y, z, for the body based on the gravitational forces from the other bodies
+  public void updatePosition(ArrayList<Body> bodies) {
+
+  }
+
+
+
+  //Utility methods
+  public double distance(double x1, double y1, double z1, double x2, double y2, double z2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2.0) + Math.pow(y2 - y1, 2.0) + Math.pow(z2 - z1, 2.0));
+  }
 }

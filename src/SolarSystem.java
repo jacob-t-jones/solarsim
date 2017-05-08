@@ -28,8 +28,7 @@ public class SolarSystem extends Application implements Algorithm {
 		//Initialize planets
 		initPlanets();
 
-		launch(args);
-
+		startSimulation();
 	}
 
 
@@ -40,6 +39,11 @@ public class SolarSystem extends Application implements Algorithm {
 		bodies = new ArrayList<Body>(); //an array to hold the bodies
 		bodies.add(sun);
 		bodies.add(earth);
+	}
+
+
+	public static void startSimulation() {
+		launch();
 	}
 
 
