@@ -27,8 +27,6 @@ public class SolarSystem implements Algorithm {
 
 	ArrayList<Body> bodies;
 
-	double x = - 10.0;
-	double y = 0.0;
 
 	public SolarSystem() {
 
@@ -38,64 +36,69 @@ public class SolarSystem implements Algorithm {
 
 
 	public void initPlanets() {
-		sun = new Body(0, 0.0, 0.0, 0.0, sunRadius, 500.0, Color.YELLOW, "Sun");
-		mercury = new Body(1, 0.387, 0.0, 0.0, 0.1, 500, Color.GREY, "Mercury");
-		venus = new Body(2, 0.723, 0.0, 0.0, 0.1, 500.0, Color.ORANGE, "Venus");
-		earth = new Body(3, 1.0, 0.0, 0.0, 0.1, 500.0, Color.BLUE, "Earth");
-		mars = new Body(4, 1.524, 0.0, 0.0, 0.075, 500.0, Color.RED, "Mars");
-		jupiter = new Body(5, 5.203, 0.0, 0.0, 2, 500.0, Color.ORANGE, "Jupiter");
-		saturn = new Body(6, 9.537, 0.0, 0.0, 1.5, 500.0, Color.YELLOW, "Saturn");
-		uranus = new Body(7, 19.191, 0.0, 0.0, 1.25, 500.0, Color.BLUE, "Uranus");
-		neptune = new Body(8, 30.069, 0.0, 0.0, 1.25, 500.0, Color.GREEN, "Neptune");
+		sun = new Body(0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.989 * Math.pow(10, 30), 0.0, 0.0, Color.YELLOW, "Sun");
+		mercury = new Body(1, 5.79 * Math.pow(10, 10), 0.0, 0.0, 0.1, 5.79 * Math.pow(10, 11), 3.302 * Math.pow(10, 23), 0.0, 47873, Color.GREY, "Mercury");
+		venus = new Body(2, 1.082 * Math.pow(10, 11), 0.0, 0.0, 0.1, 1.082 * Math.pow(10, 11), 4.869 * Math.pow(10, 24), 0.0, 35021, Color.ORANGE, "Venus");
+		earth = new Body(3, 1.496 * Math.pow(10, 11), 0.0, 0.0, 0.1, 1.496 * Math.pow(10, 11), 5.974 * Math.pow(10, 24), 0.0, 29786, Color.BLUE, "Earth");
+		mars = new Body(4, 2.279 * Math.pow(10, 11), 0.0, 0.0, 0.075, 2.279 * Math.pow(10, 11), 6.419 * Math.pow(10, 23), 0.0, 24131, Color.RED, "Mars");
+		jupiter = new Body(5, 7.783 * Math.pow(10, 11), 0.0, 0.0, 2, 7.783 * Math.pow(10, 11), 1.899 * Math.pow(10, 27), 0.0, 13070, Color.ORANGE, "Jupiter");
+		saturn = new Body(6, 1.427 * Math.pow(10, 12), 0.0, 0.0, 1.5, 1.427 * Math.pow(10, 12), 5.685 * Math.pow(10, 26), 0.0, 9672, Color.YELLOW, "Saturn");
+		uranus = new Body(7, 2.871 * Math.pow(10, 12), 0.0, 0.0, 1.25, 2.871 * Math.pow(10, 12), 8.685 * Math.pow(10, 25), 0.0, 6835, Color.BLUE, "Uranus");
+		neptune = new Body(8, 4.497 * Math.pow(10, 12), 0.0, 0.0, 1.25, 4.497 * Math.pow(10, 12), 1.024 * Math.pow(10, 26), 0.0, 5478, Color.GREEN, "Neptune");
 
 		bodies = new ArrayList<Body>(); //an array to hold the bodies
 		bodies.add(sun);
-		bodies.add(earth);
 		bodies.add(mercury);
 		bodies.add(venus);
-		bodies.add(mars);
-		bodies.add(jupiter);
-		bodies.add(saturn);
-		bodies.add(uranus);
-		bodies.add(neptune);
+		bodies.add(earth);
+		// bodies.add(mars);
+		// bodies.add(jupiter);
+		// bodies.add(saturn);
+		// bodies.add(uranus);
+		// bodies.add(neptune);
+
 	}
 
 	//Interface methods
 	//This is the main animation function - it is called at specific intervals by the GUI
 	//We just make it return the array ob objects we want to be drawn
 	public Object processAlgorithm(int iteration) {
-
+		//System.out.println(iteration);
 		//update body positions
 		for (Body b: bodies) {
-			b.updatePosition(bodies);
+			b.updatePosition(iteration, bodies);
+			b.finalizePosition();
 		}
 
 		//finalize positions and create spheres that can be drawn for the bodies
 		//we shift the x position for the planets by the sun radius to get better visual product
 		Object[] sphereBodies = new Object[bodies.size() * 2];
 		for (int i = 0; i < sphereBodies.length / 2; i++) {
+			//get body
 			Body b = bodies.get(i);
-			if (b.id != 0) {
-				//make label
-				Text3D label = new Text3D(b.x + sunRadius, b.y, b.z + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
-				label.setColor(Color.BLACK);
+			double offset = 0.0;
+			if (b.id != 0) offset = sunRadius;
 
-				//make sphere
-				PhongMaterial material = new PhongMaterial(b.color);
-				Sphere3D sphere = new Sphere3D(b.x + sunRadius, b.y, b.z, b.radius, material);
-				sphereBodies[2 * i] = sphere;
-				sphereBodies[2 * i + 1] = label;
-			} else {
-				//make label
-				Text3D label = new Text3D(b.x, b.y, b.z + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
-				label.setColor(Color.BLACK);
+			double pX = mToAu(b.x);
+			double pY = mToAu(b.y);
+			double pZ = mToAu(b.z);
 
-				//make sphere
-				PhongMaterial material = new PhongMaterial(b.color);
-				Sphere3D sphere = new Sphere3D(b.x, b.y, b.z, b.radius, material);
-				sphereBodies[2 * i] = sphere;
-				sphereBodies[2 * i + 1] = label;
+			if ((iteration % 5 == 0) && (b.id == 3)) {
+        System.out.println("x: " + b.x);
+        System.out.println("x(AU): " + pX);
+        System.out.println("y: " + b.y);
+        System.out.println("y(AU): " + pY);
 			}
+
+			//make label
+			Text3D label = new Text3D(mToAu(b.x) + offset, mToAu(b.y), mToAu(b.z) + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
+			label.setColor(Color.BLACK);
+
+			//make sphere
+			PhongMaterial material = new PhongMaterial(b.color);
+			Sphere3D sphere = new Sphere3D(mToAu(b.x) + offset, mToAu(b.y), mToAu(b.z), b.radius, material);
+			sphereBodies[2 * i] = sphere;
+			sphereBodies[2 * i + 1] = label;
 
 		}
 
@@ -119,7 +122,7 @@ public class SolarSystem implements Algorithm {
 	}
 
 	public int getIterations() {
-		return 1000;
+		return 500;
 	}
 
 	public double[] getInfo() {
@@ -138,6 +141,11 @@ public class SolarSystem implements Algorithm {
 
 	public int getId() {
 		return 1;
+	}
+
+	//Utility methods
+	public double mToAu(double km) {
+		return km * (6.6846 * Math.pow(10, -12));
 	}
 
 }

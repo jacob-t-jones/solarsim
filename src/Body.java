@@ -21,25 +21,33 @@ import java.util.*;
 public class Body {
   int id;
   // Universal Constants
-  // final static long INVERSE_G = 14983338500;
-  // final static double G         = 1.0 / INVERSE_G;
-  // final static double PI        = Math.PI;
+  //final static long INVERSE_G = 14983338500;
+  //final static double G         = 1.0 / INVERSE_G;
+  final static double G = 6.674*Math.pow(10,-11);
+  final static double PI        = Math.PI;
 
   String name;
 
   // Coordinates
   double x, y, z;
   double newX, newY, newZ;
+  double orbitRadius;
 
-  // Physical dimensions
-  double mass, radius;
+  // Physical properties
+  double mass; //kg
+  double radius;
   Color color;
 
   // Orbit Information
-  double period, e, parallaxAngle, vel;
+  double period;
+  double e;
+  double parallaxAngle;
+  double velX; //km/s
+  double velY;
+  double delT = 0.1;
 
 
-  public Body(int id, double x, double y, double z, double radius, double mass, Color c, String name) {
+  public Body(int id, double x, double y, double z, double radius, double orbitRadius, double mass, double vx, double vy, Color c, String name) {
     this.id = id;
     this.x = x;
     this.y = y;
@@ -51,6 +59,9 @@ public class Body {
     this.newY = this.y;
     this.newZ = this.z;
     this.name = name;
+    this.velX = vx; //km/s
+    this.velY = vy;
+    this.orbitRadius = orbitRadius;
   }
 
   //returns a Sphere3D object with the same coords as this body for drawing in the scene
@@ -61,20 +72,43 @@ public class Body {
   }
 
   //update the x, y, z, for the body based on the gravitational forces from the other bodies
-  public void updatePosition(ArrayList<Body> bodies) {
-    for (Body b: bodies) {
-      if (b.id != this.id) { //Check not the same body
-        //Position calculation
+  public void updatePosition(int iteration, ArrayList<Body> bodies) {
+    if (id != 0) {
+      double sunMass = bodies.get(0).mass;
+      double theta = getTheta();
 
+      double fx = (Math.pow(10.0, 12.0) * (-1.0) * G * sunMass * mass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
+      double fy = (Math.pow(10.0, 12.0) * (-1.0) * G * sunMass * mass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
+
+      double ax = fx / mass;
+      double ay = fy / mass;
+
+      velX += ax * delT;
+      velY += ay * delT;
+
+      if ((iteration % 5 == 0) && (id == 3)) {
+        // System.out.println("FX: " + fx);
+        // System.out.println("ax: " + ax);
+        // System.out.println("velX: " + velX);
+        // System.out.println("x: " + x);
+        // System.out.println("newX: " + newX);
+        // System.out.println("newX(AU): " + mToAu(newX));
+        // System.out.println("orbit radius: " + orbitRadius);
+        // System.out.println("distance: " + distance(x, y, z, 0.0, 0.0, 0.0));
+        System.out.println("theta: " + theta);
       }
+
+      newX += velX * delT;
+      newY += velY * delT;
+
     }
   }
 
   //Finalize the new position
   public void finalizePosition() {
-    x = newX;
-    y = newY;
-    z = newZ;
+    this.x = this.newX;
+    this.y = this.newY;
+    this.z = this.newZ;
   }
 
 
@@ -83,4 +117,13 @@ public class Body {
   public double distance(double x1, double y1, double z1, double x2, double y2, double z2) {
     return Math.sqrt(Math.pow(x2 - x1, 2.0) + Math.pow(y2 - y1, 2.0) + Math.pow(z2 - z1, 2.0));
   }
+
+  public double getTheta() {
+    //return Math.asin(y / distance(0.0, 0.0, 0.0, x, y, z));
+    return Math.acos(y / distance(0.0, 0.0, 0.0, x, y, z));
+  }
+
+	public double mToAu(double km) {
+		return km * (6.6846 * Math.pow(10, -12));
+	}
 }
