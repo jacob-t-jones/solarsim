@@ -80,16 +80,16 @@ public class Body {
       double sunMass = bodies.get(0).mass;
       //double theta = getTheta();
 
-      //Old method using the force vector components
+      // Old method using the force vector components
       // double fx = (Math.pow(10.0, 11.0) * (1.0) * G * sunMass * mass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
       // double fy = (Math.pow(10.0, 11.0) * (-1.0) * G * sunMass * mass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
-
+      //
       // double ax = fx / mass;
       // double ay = fy / mass;
       //
       // velX += ax;
       // velY += ay;
-      //
+
       // newX += velX;
       // newY += velY;
 
