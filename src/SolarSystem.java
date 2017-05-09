@@ -46,16 +46,21 @@ public class SolarSystem implements Algorithm {
 		uranus = new Body(7, 2.871 * Math.pow(10, 12), 0.0, 0.0, 1.25, 2.871 * Math.pow(10, 12), 8.685 * Math.pow(10, 25), 0.0, 6835, Color.BLUE, "Uranus");
 		neptune = new Body(8, 4.497 * Math.pow(10, 12), 0.0, 0.0, 1.25, 4.497 * Math.pow(10, 12), 1.024 * Math.pow(10, 26), 0.0, 5478, Color.GREEN, "Neptune");
 
+		//In AU
+		// mercury = new Body(1, 0.387, 0.0, 0.0, 0.1, 0.387, 3.302 * Math.pow(10, 23), 0.0, mToAu(47873), Color.GREY, "Mercury");
+		// venus = new Body(2, 0.723, 0.0, 0.0, 0.1, 0.723, 4.869 * Math.pow(10, 24), 0.0, mToAu(35021), Color.ORANGE, "Venus");
+		// earth = new Body(3, 1.0, 0.0, 0.0, 0.1, 1.0, 5.974 * Math.pow(10, 24), 0.0, mToAu(29786), Color.BLUE, "Earth");
+
 		bodies = new ArrayList<Body>(); //an array to hold the bodies
 		bodies.add(sun);
 		bodies.add(mercury);
 		bodies.add(venus);
 		bodies.add(earth);
-		// bodies.add(mars);
-		// bodies.add(jupiter);
-		// bodies.add(saturn);
-		// bodies.add(uranus);
-		// bodies.add(neptune);
+		bodies.add(mars);
+		bodies.add(jupiter);
+		bodies.add(saturn);
+		bodies.add(uranus);
+		bodies.add(neptune);
 
 	}
 
@@ -84,19 +89,19 @@ public class SolarSystem implements Algorithm {
 			double pZ = mToAu(b.z);
 
 			if ((iteration % 5 == 0) && (b.id == 3)) {
-        System.out.println("x: " + b.x);
-        System.out.println("x(AU): " + pX);
-        System.out.println("y: " + b.y);
-        System.out.println("y(AU): " + pY);
+      //  System.out.println("x: " + b.x);
+        //System.out.println("x(AU): " + pX);
+      //  System.out.println("y: " + b.y);
+        //System.out.println("y(AU): " + pY);
 			}
 
 			//make label
-			Text3D label = new Text3D(mToAu(b.x) + offset, mToAu(b.y), mToAu(b.z) + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
+			Text3D label = new Text3D(pX, pY, pZ + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
 			label.setColor(Color.BLACK);
 
 			//make sphere
 			PhongMaterial material = new PhongMaterial(b.color);
-			Sphere3D sphere = new Sphere3D(mToAu(b.x) + offset, mToAu(b.y), mToAu(b.z), b.radius, material);
+			Sphere3D sphere = new Sphere3D(pX, pY, pZ, b.radius, material);
 			sphereBodies[2 * i] = sphere;
 			sphereBodies[2 * i + 1] = label;
 
@@ -114,7 +119,7 @@ public class SolarSystem implements Algorithm {
 	}
 
 	public boolean doClear() {
-		return true;
+		return false;
 	}
 
 	public long getDelay() {
@@ -144,8 +149,9 @@ public class SolarSystem implements Algorithm {
 	}
 
 	//Utility methods
-	public double mToAu(double km) {
-		return km * (6.6846 * Math.pow(10, -12));
+	public double mToAu(double m) {
+		//return km * (6.6846 * Math.pow(10, -12));
+		return m / (1.496 * Math.pow(10, 11));
 	}
 
 }

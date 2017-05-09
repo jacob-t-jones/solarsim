@@ -26,6 +26,8 @@ public class Body {
   final static double G = 6.674*Math.pow(10,-11);
   final static double PI        = Math.PI;
 
+  //final static double G = (6.674 * Math.pow(10, -11)) / (Math.pow(1.496 * Math.pow(10, 11), 3));
+
   String name;
 
   // Coordinates
@@ -45,6 +47,7 @@ public class Body {
   double velX; //km/s
   double velY;
   double delT = 0.1;
+  double theta = 0.0;
 
 
   public Body(int id, double x, double y, double z, double radius, double orbitRadius, double mass, double vx, double vy, Color c, String name) {
@@ -75,16 +78,30 @@ public class Body {
   public void updatePosition(int iteration, ArrayList<Body> bodies) {
     if (id != 0) {
       double sunMass = bodies.get(0).mass;
-      double theta = getTheta();
+      //double theta = getTheta();
 
-      double fx = (Math.pow(10.0, 12.0) * (-1.0) * G * sunMass * mass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
-      double fy = (Math.pow(10.0, 12.0) * (-1.0) * G * sunMass * mass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
+      //Old method using the force vector components
+      // double fx = (Math.pow(10.0, 11.0) * (1.0) * G * sunMass * mass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
+      // double fy = (Math.pow(10.0, 11.0) * (-1.0) * G * sunMass * mass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
 
-      double ax = fx / mass;
-      double ay = fy / mass;
+      // double ax = fx / mass;
+      // double ay = fy / mass;
+      //
+      // velX += ax;
+      // velY += ay;
+      //
+      // newX += velX;
+      // newY += velY;
 
-      velX += ax * delT;
-      velY += ay * delT;
+      double velocity = Math.pow(10.0, 8) * Math.pow((G * sunMass) / orbitRadius, 0.5);
+
+      double angVelocity = (velocity / orbitRadius);
+      double vX = velocity * Math.cos(theta);
+      double vY = velocity * Math.sin(theta);
+
+      theta += angVelocity * delT;
+      newX += vX * delT;
+      newY += vY * delT;
 
       if ((iteration % 5 == 0) && (id == 3)) {
         // System.out.println("FX: " + fx);
@@ -95,11 +112,13 @@ public class Body {
         // System.out.println("newX(AU): " + mToAu(newX));
         // System.out.println("orbit radius: " + orbitRadius);
         // System.out.println("distance: " + distance(x, y, z, 0.0, 0.0, 0.0));
+        //System.out.println("fy: " + fy);
+        // System.out.println("vX: " + vX);
+        // System.out.println("vY: " + vY);
+        System.out.println("X: " + mToAu(x));
+        System.out.println("Y: " + mToAu(y));
         System.out.println("theta: " + theta);
       }
-
-      newX += velX * delT;
-      newY += velY * delT;
 
     }
   }
@@ -111,16 +130,19 @@ public class Body {
     this.z = this.newZ;
   }
 
-
-
   //Utility methods
   public double distance(double x1, double y1, double z1, double x2, double y2, double z2) {
     return Math.sqrt(Math.pow(x2 - x1, 2.0) + Math.pow(y2 - y1, 2.0) + Math.pow(z2 - z1, 2.0));
   }
 
+  public double distance(double x1, double y1, double x2, double y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  }
+
   public double getTheta() {
     //return Math.asin(y / distance(0.0, 0.0, 0.0, x, y, z));
-    return Math.acos(y / distance(0.0, 0.0, 0.0, x, y, z));
+    return Math.acos(y / distance(0.0, 0.0, x, y));
+    //return Math.atan(y / x);
   }
 
 	public double mToAu(double km) {
