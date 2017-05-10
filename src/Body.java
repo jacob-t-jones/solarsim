@@ -37,7 +37,7 @@ public class Body {
         // Physical properties
         double mass; //kg
         double radius;
-        
+
         //Color color;
         Image img;
         boolean isRinged;
@@ -86,7 +86,6 @@ public class Body {
 
                         newX = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.cos(theta);
                         newY = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.sin(theta);
-                        }
                 }
         }
 
