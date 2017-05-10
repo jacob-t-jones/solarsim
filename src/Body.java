@@ -80,44 +80,70 @@ public class Body {
       double sunMass = bodies.get(0).mass;
       //double theta = getTheta();
 
-      // Old method using the force vector components
+      //Method 1
       // double fx = (Math.pow(10.0, 11.0) * (1.0) * G * sunMass * mass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
       // double fy = (Math.pow(10.0, 11.0) * (-1.0) * G * sunMass * mass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
-      //
+
       // double ax = fx / mass;
       // double ay = fy / mass;
+
+      //Method 2
+      // double mult = -1.0;
+      // // if ((x < 0) && (y < 0)) mult = 1.0;
+      //
+      // double ax = Math.pow(10, 5) * ((mult) * G * sunMass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
+      // double ay = Math.pow(10, 5) * ((mult) * G * sunMass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
       //
       // velX += ax;
       // velY += ay;
+      //
+      // newX += (Math.pow(10.0, 5.0)) * velX;
+      // newY += (Math.pow(10.0, 5.0)) * velY;
+      //
+      // //update theta
+      // double v = Math.sqrt(Math.pow(velX, 2) + Math.pow(velY, 2));
+      // double angV = Math.pow(10, 5) * v / distance(0.0, 0.0, 0.0, newX, newY, newZ);
+      // theta += angV;
 
-      // newX += velX;
-      // newY += velY;
 
-      double velocity = Math.pow(10.0, 8) * Math.pow((G * sunMass) / orbitRadius, 0.5);
+      //Method 3
+      // double velocity = Math.pow(10.0, 8) * Math.pow((G * sunMass) / orbitRadius, 0.5);
+      //
+      // double angVelocity = (velocity / orbitRadius);
+      // double vX = velocity * Math.cos(theta);
+      // double vY = velocity * Math.sin(theta);
+      //
+      // theta += angVelocity * delT;
+      // newX += vX * delT;
+      // newY += vY * delT;
 
-      double angVelocity = (velocity / orbitRadius);
-      double vX = velocity * Math.cos(theta);
-      double vY = velocity * Math.sin(theta);
+      //Method 4
+      double velocity = Math.pow(10.0, 7) * Math.pow((G * sunMass) / distance(0.0, 0.0, 0.0, x, y, z), 0.5);
+      double angVelocity = (velocity / distance(0.0, 0.0, 0.0, x, y, z));
 
       theta += angVelocity * delT;
-      newX += vX * delT;
-      newY += vY * delT;
+
+      newX = distance(0.0, 0.0, 0.0, x, y, z) * Math.cos(theta);
+      newY = distance(0.0, 0.0, 0.0, x, y, z) * Math.sin(theta);
+
 
       if ((iteration % 5 == 0) && (id == 3)) {
         // System.out.println("FX: " + fx);
         // System.out.println("ax: " + ax);
-        // System.out.println("velX: " + velX);
+
         // System.out.println("x: " + x);
         // System.out.println("newX: " + newX);
         // System.out.println("newX(AU): " + mToAu(newX));
         // System.out.println("orbit radius: " + orbitRadius);
         // System.out.println("distance: " + distance(x, y, z, 0.0, 0.0, 0.0));
-        //System.out.println("fy: " + fy);
-        // System.out.println("vX: " + vX);
-        // System.out.println("vY: " + vY);
+        // System.out.println("ax: " + ax);
+        // System.out.println("ay: " + ay);
+        System.out.println("velX: " + velX);
+        System.out.println("velY: " + velY);
         System.out.println("X: " + mToAu(x));
         System.out.println("Y: " + mToAu(y));
         System.out.println("theta: " + theta);
+        System.out.println("y/x: " +  y / x);
       }
 
     }
@@ -140,9 +166,12 @@ public class Body {
   }
 
   public double getTheta() {
-    //return Math.asin(y / distance(0.0, 0.0, 0.0, x, y, z));
-    return Math.acos(y / distance(0.0, 0.0, x, y));
-    //return Math.atan(y / x);
+    // double angle = Math.atan(y / x);
+    // // if (angle < 0.0) {
+    // //   angle += PI;
+    // // }
+    // return angle;
+    return Math.acos(x / distance(0.0, 0.0, 0.0, x, y, z));
   }
 
 	public double mToAu(double km) {

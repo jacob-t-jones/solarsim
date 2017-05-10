@@ -88,13 +88,6 @@ public class SolarSystem implements Algorithm {
 			double pY = mToAu(b.y);
 			double pZ = mToAu(b.z);
 
-			if ((iteration % 5 == 0) && (b.id == 3)) {
-      //  System.out.println("x: " + b.x);
-        //System.out.println("x(AU): " + pX);
-      //  System.out.println("y: " + b.y);
-        //System.out.println("y(AU): " + pY);
-			}
-
 			//make label
 			Text3D label = new Text3D(pX, pY, pZ + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
 			label.setColor(Color.BLACK);
@@ -119,7 +112,7 @@ public class SolarSystem implements Algorithm {
 	}
 
 	public boolean doClear() {
-		return false;
+		return true;
 	}
 
 	public long getDelay() {
@@ -127,7 +120,7 @@ public class SolarSystem implements Algorithm {
 	}
 
 	public int getIterations() {
-		return 500;
+		return 5000;
 	}
 
 	public double[] getInfo() {
