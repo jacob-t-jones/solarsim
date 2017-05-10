@@ -55,7 +55,6 @@ public class SolarSystem implements Algorithm {
                 uranus  = new Body(7, 2.871 * Math.pow(10, 12), 0.0, 0.0, sun,  2.5557 * Math.pow(10, 7), 8.685 * Math.pow(10, 25), uranusImg,  "Uranus",  true,  null);
                 neptune = new Body(8, 4.497 * Math.pow(10, 12), 0.0, 0.0, sun,  2.4766 * Math.pow(10, 7), 1.024 * Math.pow(10, 26), neptuneImg, "Neptune", false, null);
                 pluto   = new Body(9, 5.906 * Math.pow(10, 12), 0.0, 0.0, sun,  1.1850 * Math.pow(10, 6), 1.460 * Math.pow(10, 22), plutoImg,   "Pluto",   false, null);
-                // moon    = new Body(10,
 
 
                 bodies = new ArrayList<Body>(); //an array to hold the bodies
