@@ -170,4 +170,8 @@ public class SolarSystem implements Algorithm {
                 return m / (1.496 * Math.pow(10, 11));
         }
 
+        public double distance(double x0, double y0, double z0, double x1, double y1, double z1) {
+                return Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) + (z1 - z0) * (z1 - z0));
+        }
+
 }
