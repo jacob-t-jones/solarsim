@@ -99,12 +99,12 @@ public class SolarSystem implements Algorithm {
                         double pY = mToAu(b.y);
                         double pZ = mToAu(b.z);
 
-                        //make label
-                        Text3D label = new Text3D(pX, pY, pZ + (b.radius * 1.1), 0.0, 180.0, 0.0, b.name);
-                        label.setColor(Color.BLACK);
-
                         // scale body
                         double scaledRadius = Math.log10(100000 * mToAu(b.radius));
+
+												//make label
+                        Text3D label = new Text3D(pX, pY, pZ + (scaledRadius * 1.1), 0.0, 180.0, 0.0, b.name);
+                        label.setColor(Color.BLACK);
 
                         //make sphere
                         PhongMaterial material = new PhongMaterial();
