@@ -45,6 +45,7 @@ public class SolarSystem implements Algorithm {
                 Image saturnImg  = new Image("images/saturnmap.jpg");
                 Image uranusImg  = new Image("images/uranusmap.jpg");
                 Image neptuneImg = new Image("images/neptunemap.jpg");
+								Image plutoImg = new Image("images/plutomap1k.jpg");
 
 
                 sun     = new Body(0, 0.0,                      0.0, 0.0, null, 0.0,                      1.989 * Math.pow(10, 30), sunImg,     "Sun",     false);
