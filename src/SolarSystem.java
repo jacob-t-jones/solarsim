@@ -17,15 +17,10 @@ import javafx.scene.image.Image;
 
 public class SolarSystem implements Algorithm {
 
-        //Defaults
-        final double sunRadius = 3.0;
-
-        //The planets
         Body sun;
         Body mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto;
 
         ArrayList<Body> bodies;
-
 
         public SolarSystem() {
 
@@ -93,16 +88,14 @@ public class SolarSystem implements Algorithm {
                         //get body
                         Body b = bodies.get(i);
                         double offset = 0.0;
-                        if (b.id != 0) offset = sunRadius;
 
-                        double pX = mToAu(b.x);
-                        double pY = mToAu(b.y);
-                        double pZ = mToAu(b.z);
-
-                        // scale body
+                        // scale objects
                         double scaledRadius = Math.log10(100000 * mToAu(b.radius));
+                        double pX = 5 * mToAu(b.x);
+                        double pY = 5 * mToAu(b.y);
+                        double pZ = 5 * mToAu(b.z);
 
-												//make label
+                        //make label
                         Text3D label = new Text3D(pX, pY, pZ + (scaledRadius * 1.1), 0.0, 180.0, 0.0, b.name);
                         label.setColor(Color.BLACK);
 
