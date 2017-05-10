@@ -38,7 +38,9 @@ public class Body {
   // Physical properties
   double mass; //kg
   double radius;
-  Color color;
+  //Color color;
+  Image img;
+  boolean isRinged;
 
   // Orbit Information
   double period;
@@ -50,14 +52,14 @@ public class Body {
   double theta = 0.0;
 
 
-  public Body(int id, double x, double y, double z, double radius, double orbitRadius, double mass, double vx, double vy, Color c, String name) {
+  public Body(int id, double x, double y, double z, double radius, double orbitRadius, double mass, double vx, double vy, Image img, String name, boolean isRinged) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.z = z;
     this.mass = mass;
     this.radius = radius;
-    this.color = c;
+    this.img = img;
     this.newX = this.x;
     this.newY = this.y;
     this.newZ = this.z;
@@ -65,14 +67,15 @@ public class Body {
     this.velX = vx; //km/s
     this.velY = vy;
     this.orbitRadius = orbitRadius;
+    this.isRinged = isRinged;
   }
 
   //returns a Sphere3D object with the same coords as this body for drawing in the scene
-  public Sphere3D createSphere() {
-    finalizePosition();
-    PhongMaterial material = new PhongMaterial(color);
-    return new Sphere3D(x, y, z, radius, material);
-  }
+  // public Sphere3D createSphere() {
+  //   finalizePosition();
+  //   PhongMaterial material = new PhongMaterial(color);
+  //   return new Sphere3D(x, y, z, radius, material);
+  // }
 
   //update the x, y, z, for the body based on the gravitational forces from the other bodies
   public void updatePosition(int iteration, ArrayList<Body> bodies) {

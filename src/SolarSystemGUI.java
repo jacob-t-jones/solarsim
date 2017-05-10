@@ -36,6 +36,7 @@ public class SolarSystemGUI extends Application
 		}
 
 		draw3d.setBackgroundColor(Color.WHITE);
+    //draw3d.setShowAxes(false);
 
 	}
 
