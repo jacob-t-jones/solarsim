@@ -49,7 +49,9 @@ public class Body {
         double parallaxAngle;
         double velX; //km/s
         double velY;
+        double delT = 0.1;
         double theta = 0.0;
+
 
         public Body(int id, double x, double y, double z, Body orbitBody, double radius, double mass, Image img, String name, boolean isRinged, Image ringImg) {
                 this.id = id;
@@ -71,6 +73,7 @@ public class Body {
                         this.orbitZ = orbitBody.z;
                         this.orbitMass = orbitBody.mass;
                 }
+
         }
 
         //update the x, y, z, for the body based on the gravitational forces from the other bodies
@@ -83,6 +86,7 @@ public class Body {
 
                         newX = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.cos(theta);
                         newY = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.sin(theta);
+                        }
                 }
         }
 

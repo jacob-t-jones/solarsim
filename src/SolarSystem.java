@@ -78,7 +78,7 @@ public class SolarSystem implements Algorithm {
         public Object processAlgorithm(int iteration) {
                 //update body positions
                 for (Body b: bodies) {
-                        b.updatePosition(iteration, bodies);
+                        b.updatePosition(iteration);
                         b.finalizePosition();
                 }
 
