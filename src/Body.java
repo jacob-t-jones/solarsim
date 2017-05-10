@@ -34,6 +34,7 @@ public class Body {
   double x, y, z;
   double newX, newY, newZ;
   double orbitRadius;
+  double orbitX, orbitY, orbitZ, orbitMass;
 
   // Physical properties
   double mass; //kg
@@ -52,7 +53,7 @@ public class Body {
   double theta = 0.0;
 
 
-  public Body(int id, double x, double y, double z, double radius, double orbitRadius, double mass, double vx, double vy, Image img, String name, boolean isRinged) {
+  public Body(int id, double x, double y, double z, Body orbitBody, double radius, double mass, Image img, String name, boolean isRinged) {
     this.id = id;
     this.x = x;
     this.y = y;
@@ -64,10 +65,14 @@ public class Body {
     this.newY = this.y;
     this.newZ = this.z;
     this.name = name;
-    this.velX = vx; //km/s
-    this.velY = vy;
-    this.orbitRadius = orbitRadius;
     this.isRinged = isRinged;
+    if (orbitBody != null) {
+      this.orbitX = orbitBody.x;
+      this.orbitY = orbitBody.y;
+      this.orbitZ = orbitBody.z;
+      this.orbitMass = orbitBody.mass;
+    }
+
   }
 
   //returns a Sphere3D object with the same coords as this body for drawing in the scene
@@ -80,7 +85,7 @@ public class Body {
   //update the x, y, z, for the body based on the gravitational forces from the other bodies
   public void updatePosition(int iteration, ArrayList<Body> bodies) {
     if (id != 0) {
-      double sunMass = bodies.get(0).mass;
+      //double sunMass = bodies.get(0).mass;
       //double theta = getTheta();
 
       //Method 1
@@ -121,13 +126,13 @@ public class Body {
       // newY += vY * delT;
 
       //Method 4
-      double velocity = Math.pow(10.0, 7) * Math.pow((G * sunMass) / distance(0.0, 0.0, 0.0, x, y, z), 0.5);
-      double angVelocity = (velocity / distance(0.0, 0.0, 0.0, x, y, z));
+      double velocity = Math.pow(10.0, 7) * Math.pow((G * orbitMass) / distance(orbitX, orbitY, orbitZ, x, y, z), 0.5);
+      double angVelocity = (velocity / distance(orbitX, orbitY, orbitZ, x, y, z));
 
       theta += angVelocity * delT;
 
-      newX = distance(0.0, 0.0, 0.0, x, y, z) * Math.cos(theta);
-      newY = distance(0.0, 0.0, 0.0, x, y, z) * Math.sin(theta);
+      newX = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.cos(theta);
+      newY = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.sin(theta);
 
 
       if ((iteration % 5 == 0) && (id == 3)) {
