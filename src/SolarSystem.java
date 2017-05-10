@@ -90,10 +90,11 @@ public class SolarSystem implements Algorithm {
                         double offset = 0.0;
 
                         // scale objects
-                        double scaledRadius = Math.log10(100000 * mToAu(b.radius));
-                        double pX = 5 * mToAu(b.x);
-                        double pY = 5 * mToAu(b.y);
-                        double pZ = 5 * mToAu(b.z);
+                        double scaledRadius = Math.log10(10000 * mToAu(b.radius));
+                        double distance = Math.log10(100 * distance(b.x, b.y, b.z, b.orbitX, b.orbitY, b.orbitZ));
+                        double pX = distance * Math.cos(b.theta);
+                        double pY = distance * Math.sin(b.theta);
+                        double pZ = 0;
 
                         //make label
                         Text3D label = new Text3D(pX, pY, pZ + (scaledRadius * 1.1), 0.0, 180.0, 0.0, b.name);
