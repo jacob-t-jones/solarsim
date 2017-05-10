@@ -43,7 +43,7 @@ public class SolarSystem implements Algorithm {
 		Image plutoImg   = new Image("images/plutomap1k.jpg");
 
 
-                sun     = new Body(0, 0.0,                      0.0, 0.0, null, 0.0,                      1.989 * Math.pow(10, 30), sunImg,     "Sun",     false);
+                sun     = new Body(0, 0.0,                      0.0, 0.0, null, 6.9600 * Math.pow(10, 8), 1.989 * Math.pow(10, 30), sunImg,     "Sun",     false);
                 mercury = new Body(1, 5.790 * Math.pow(10, 10), 0.0, 0.0, sun,  2.4400 * Math.pow(10, 6), 3.302 * Math.pow(10, 23), mercuryImg, "Mercury", false);
                 venus   = new Body(2, 1.082 * Math.pow(10, 11), 0.0, 0.0, sun,  6.0540 * Math.pow(10, 6), 4.869 * Math.pow(10, 24), venusImg,   "Venus",   false);
                 earth   = new Body(3, 1.496 * Math.pow(10, 11), 0.0, 0.0, sun,  6.3780 * Math.pow(10, 6), 5.974 * Math.pow(10, 24), earthImg,   "Earth",   false);
@@ -90,8 +90,8 @@ public class SolarSystem implements Algorithm {
                         double offset = 0.0;
 
                         // scale objects
-                        double scaledRadius = Math.log10(10000 * mToAu(b.radius));
-                        double distance = Math.log10(100 * distance(b.x, b.y, b.z, b.orbitX, b.orbitY, b.orbitZ));
+                        double scaledRadius = Math.log10(100000 * mToAu(b.radius));
+                        double distance = 10 * Math.log1p(2.71* mToAu(distance(b.x, b.y, b.z, b.orbitX, b.orbitY, b.orbitZ)));
                         double pX = distance * Math.cos(b.theta);
                         double pY = distance * Math.sin(b.theta);
                         double pZ = 0;
@@ -113,7 +113,7 @@ public class SolarSystem implements Algorithm {
                                 Image i1 = new Image("images/saturn_ring.png");
                                 mat.setDiffuseMap(i1);
                                 Image i2 = new Image("images/saturnmap.jpg");
-                                Cylinder3D ring = new Cylinder3D(pX, pY, pZ, 2.0 * b.radius, 0.05, mat);
+                                Cylinder3D ring = new Cylinder3D(pX, pY, pZ, 2.0 * scaledRadius, 0.05, mat);
                                 drawBodies.add(ring);
                         }
 
