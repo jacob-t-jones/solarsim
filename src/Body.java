@@ -102,8 +102,8 @@ public class Body {
                         // double mult = -1.0;
                         // // if ((x < 0) && (y < 0)) mult = 1.0;
                         //
-                        // double ax = Math.pow(10, 5) * ((mult) * G * sunMass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
-                        // double ay = Math.pow(10, 5) * ((mult) * G * sunMass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, 0.0, x, y, z), 2.0);
+                        // double ax = Math.pow(10, 5) * ((mult) * G * orbitMass * Math.cos(theta)) / Math.pow(distance(orbitX, orbitY, orbitZ, x, y, z), 2.0);
+                        // double ay = Math.pow(10, 5) * ((mult) * G * orbitMass * Math.sin(theta)) / Math.pow(distance(orbitX, orbitY, orbitZ, x, y, z), 2.0);
                         //
                         // velX += ax;
                         // velY += ay;
@@ -182,7 +182,7 @@ public class Body {
                 // //   angle += PI;
                 // // }
                 // return angle;
-                return Math.acos(x / distance(0.0, 0.0, 0.0, x, y, z));
+                return Math.atan2(y, x);
         }
 
         public double mToAu(double km) {
