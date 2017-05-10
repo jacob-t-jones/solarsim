@@ -37,30 +37,29 @@ public class SolarSystem implements Algorithm {
 
 	public void initPlanets() {
 		//load images
-		Image sunImg = new Image("images/sunmap.jpg");
+		Image sunImg     = new Image("images/sunmap.jpg");
 		Image mercuryImg = new Image("images/mercurymap.jpg");
-		Image venusImg = new Image("images/venusmap.jpg");
-		Image earthImg = new Image("images/earthmap1k.jpg");
-		Image marsImg = new Image("images/mars_1k_color.jpg");
+		Image venusImg   = new Image("images/venusmap.jpg");
+		Image earthImg   = new Image("images/earthmap1k.jpg");
+		Image marsImg    = new Image("images/mars_1k_color.jpg");
 		Image jupiterImg = new Image("images/jupitermap.jpg");
-		Image saturnImg = new Image("images/saturnmap.jpg");
-		Image uranusImg = new Image("images/uranusmap.jpg");
+		Image saturnImg  = new Image("images/saturnmap.jpg");
+		Image uranusImg  = new Image("images/uranusmap.jpg");
 		Image neptuneImg = new Image("images/neptunemap.jpg");
 
-		sun = new Body(0, 0.0, 0.0, 0.0, null, 0.0, 1.989 * Math.pow(10, 30), sunImg, "Sun", false);
-		mercury = new Body(1, 5.79 * Math.pow(10, 10), 0.0, 0.0, sun, 0.1, 3.302 * Math.pow(10, 23), mercuryImg, "Mercury", false);
-		venus = new Body(2, 1.082 * Math.pow(10, 11), 0.0, 0.0, sun, 0.1, 4.869 * Math.pow(10, 24), venusImg, "Venus", false);
-		earth = new Body(3, 1.496 * Math.pow(10, 11), 0.0, 0.0, sun, 0.1, 5.974 * Math.pow(10, 24), earthImg, "Earth", false);
-		mars = new Body(4, 2.279 * Math.pow(10, 11), 0.0, 0.0, sun, 0.075, 6.419 * Math.pow(10, 23), marsImg, "Mars", false);
-		jupiter = new Body(5, 7.783 * Math.pow(10, 11), 0.0, 0.0, sun, 2, 1.899 * Math.pow(10, 27), jupiterImg, "Jupiter", false);
-		saturn = new Body(6, 1.427 * Math.pow(10, 12), 0.0, 0.0, sun, 1.5, 5.685 * Math.pow(10, 26), saturnImg, "Saturn", true);
-		uranus = new Body(7, 2.871 * Math.pow(10, 12), 0.0, 0.0, sun, 1.25, 8.685 * Math.pow(10, 25), uranusImg, "Uranus", false);
-		neptune = new Body(8, 4.497 * Math.pow(10, 12), 0.0, 0.0, sun, 1.25, 1.024 * Math.pow(10, 26), neptuneImg, "Neptune", false);
 
-		//In AU
-		// mercury = new Body(1, 0.387, 0.0, 0.0, 0.1, 0.387, 3.302 * Math.pow(10, 23), 0.0, mToAu(47873), Color.GREY, "Mercury");
-		// venus = new Body(2, 0.723, 0.0, 0.0, 0.1, 0.723, 4.869 * Math.pow(10, 24), 0.0, mToAu(35021), Color.ORANGE, "Venus");
-		// earth = new Body(3, 1.0, 0.0, 0.0, 0.1, 1.0, 5.974 * Math.pow(10, 24), 0.0, mToAu(29786), Color.BLUE, "Earth");
+		sun     = new Body(00, 0.0,                      0.0, 0.0, null, 0.0,      1.989 * Math.pow(10, 30), sunImg,     "Sun",     false);
+		mercury = new Body(01, 5.790 * Math.pow(10, 10), 0.0, 0.0, sun,  2440000,  3.302 * Math.pow(10, 23), mercuryImg, "Mercury", false);
+		venus   = new Body(02, 1.082 * Math.pow(10, 11), 0.0, 0.0, sun,  6054000,  4.869 * Math.pow(10, 24), venusImg,   "Venus",   false);
+		earth   = new Body(03, 1.496 * Math.pow(10, 11), 0.0, 0.0, sun,  6378000,  5.974 * Math.pow(10, 24), earthImg,   "Earth",   false);
+		mars    = new Body(04, 2.279 * Math.pow(10, 11), 0.0, 0.0, sun,  3396000,  6.419 * Math.pow(10, 23), marsImg,    "Mars",    false);
+		jupiter = new Body(05, 7.783 * Math.pow(10, 11), 0.0, 0.0, sun,  71492000, 1.899 * Math.pow(10, 27), jupiterImg, "Jupiter", false);
+		saturn  = new Body(06, 1.427 * Math.pow(10, 12), 0.0, 0.0, sun,  60286000, 5.685 * Math.pow(10, 26), saturnImg,  "Saturn",  true);
+		uranus  = new Body(07, 2.871 * Math.pow(10, 12), 0.0, 0.0, sun,  25557000, 8.685 * Math.pow(10, 25), uranusImg,  "Uranus",  false);
+		neptune = new Body(08, 4.497 * Math.pow(10, 12), 0.0, 0.0, sun,  24766000, 1.024 * Math.pow(10, 26), neptuneImg, "Neptune", false);
+    pluto   = new Body(09, 5.906 * Math.pow(10, 12), 0.0, 0.0, sun,  1185000,  1.460 * Math.pow(10, 22), plutoImg,   "Pluto",   false);
+                // moon    = new Body(10,
+
 
 		bodies = new ArrayList<Body>(); //an array to hold the bodies
 		bodies.add(sun);
