@@ -45,7 +45,7 @@ public class SolarSystem implements Algorithm {
                 Image saturnImg  = new Image("images/saturnmap.jpg");
                 Image uranusImg  = new Image("images/uranusmap.jpg");
                 Image neptuneImg = new Image("images/neptunemap.jpg");
-								Image plutoImg = new Image("images/plutomap1k.jpg");
+		Image plutoImg   = new Image("images/plutomap1k.jpg");
 
 
                 sun     = new Body(0, 0.0,                      0.0, 0.0, null, 0.0,                      1.989 * Math.pow(10, 30), sunImg,     "Sun",     false);
@@ -57,7 +57,7 @@ public class SolarSystem implements Algorithm {
                 saturn  = new Body(6, 1.427 * Math.pow(10, 12), 0.0, 0.0, sun,  6.0286 * Math.pow(10, 7), 5.685 * Math.pow(10, 26), saturnImg,  "Saturn",  true);
                 uranus  = new Body(7, 2.871 * Math.pow(10, 12), 0.0, 0.0, sun,  2.5557 * Math.pow(10, 7), 8.685 * Math.pow(10, 25), uranusImg,  "Uranus",  false);
                 neptune = new Body(8, 4.497 * Math.pow(10, 12), 0.0, 0.0, sun,  2.4766 * Math.pow(10, 7), 1.024 * Math.pow(10, 26), neptuneImg, "Neptune", false);
-                pluto   = new Body(9, 5.906 * Math.pow(10, 12), 0.0, 0.0, sun,  1.1850 * Math.pow(10, 6),  1.460 * Math.pow(10, 22), plutoImg,   "Pluto",   false);
+                pluto   = new Body(9, 5.906 * Math.pow(10, 12), 0.0, 0.0, sun,  1.1850 * Math.pow(10, 6), 1.460 * Math.pow(10, 22), plutoImg,   "Pluto",   false);
                 // moon    = new Body(10,
 
 
@@ -71,6 +71,7 @@ public class SolarSystem implements Algorithm {
                 bodies.add(saturn);
                 bodies.add(uranus);
                 bodies.add(neptune);
+                bodies.add(pluto);
 
         }
 
@@ -103,7 +104,7 @@ public class SolarSystem implements Algorithm {
                         label.setColor(Color.BLACK);
 
                         // scale body
-                        double scaledRadius = b.radius / (1.5 * Math.pow(10, 8));
+                        double scaledRadius = Math.log10(100000 * mToAu(b.radius));
 
                         //make sphere
                         PhongMaterial material = new PhongMaterial();
