@@ -24,13 +24,13 @@ public class SolarSystem implements Algorithm {
 
         public SolarSystem() {
 
-                //Initialize planets
+                // Initialize planets
                 initPlanets();
         }
 
 
         public void initPlanets() {
-                //load images
+                // load images
                 Image sunImg     = new Image("images/sunmap2.jpg");
                 Image mercuryImg = new Image("images/mercurymap.jpg");
                 Image venusImg   = new Image("images/venusmap.jpg");
@@ -40,9 +40,9 @@ public class SolarSystem implements Algorithm {
                 Image saturnImg  = new Image("images/saturnmap.jpg");
                 Image uranusImg  = new Image("images/uranusmap.jpg");
                 Image neptuneImg = new Image("images/neptunemap.jpg");
-								Image plutoImg   = new Image("images/plutomap1k.jpg");
-								Image saturnRingImg = new Image("images/saturn_ring.png");
-								Image uranusRingImg = new Image("images/uranus_ring.png");
+                Image plutoImg   = new Image("images/plutomap1k.jpg");
+                Image saturnRingImg = new Image("images/saturn_ring.png");
+                Image uranusRingImg = new Image("images/uranus_ring.png");
 
 
                 sun     = new Body(0, 0.0,                      0.0, 0.0, null, 6.9600 * Math.pow(10, 8), 1.989 * Math.pow(10, 30), sunImg,     "Sun",     false, null);
@@ -76,7 +76,6 @@ public class SolarSystem implements Algorithm {
         //This is the main animation function - it is called at specific intervals by the GUI
         //We just make it return the array ob objects we want to be drawn
         public Object processAlgorithm(int iteration) {
-                //System.out.println(iteration);
                 //update body positions
                 for (Body b: bodies) {
                         b.updatePosition(iteration, bodies);
@@ -111,22 +110,19 @@ public class SolarSystem implements Algorithm {
 
                         if (b.isRinged) {
                                 PhongMaterial mat = new PhongMaterial();
-																Cylinder3D ring;
-																Image img;
-																if (b.id == 6) {
-																	img = new Image("images/saturn_ring.png");
-																	mat.setDiffuseMap(img);
-	                                ring = new Cylinder3D(pX, pY, pZ, 2.0 * scaledRadius, 0.05, mat);
-																} else {
-																	img = new Image("images/uranus_ring.png");
-																	mat.setDiffuseMap(img);
-	                                ring = new Cylinder3D(pX, pY, pZ, 2.0 * scaledRadius, 0.05, 90.0, 0.0, 0.0, mat);
-																}
+                                Cylinder3D ring;
+                                Image img;
+                                if (b.id == 6) {
+                                        img = new Image("images/saturn_ring.png");
+                                        mat.setDiffuseMap(img);
+                                        ring = new Cylinder3D(pX, pY, pZ, 2.0 * scaledRadius, 0.05, mat);
+                                } else {
+                                        img = new Image("images/uranus_ring.png");
+                                        mat.setDiffuseMap(img);
+                                        ring = new Cylinder3D(pX, pY, pZ, 2.0 * scaledRadius, 0.05, 90.0, 0.0, 0.0, mat);
+                                }
                                 drawBodies.add(ring);
                         }
-
-
-
                 }
 
                 Object[] drawBodyArray = new Object[drawBodies.size()];
@@ -175,7 +171,6 @@ public class SolarSystem implements Algorithm {
 
         //Utility methods
         public double mToAu(double m) {
-                //return km * (6.6846 * Math.pow(10, -12));
                 return m / (1.496 * Math.pow(10, 11));
         }
 

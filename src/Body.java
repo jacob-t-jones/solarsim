@@ -21,13 +21,10 @@ import java.util.*;
 public class Body {
 
         int id;
+
         // Universal Constants
-        //final static long INVERSE_G = 14983338500;
-        //final static double G         = 1.0 / INVERSE_G;
         final static double G = 6.674*Math.pow(10,-11);
         final static double PI        = Math.PI;
-
-        //final static double G = (6.674 * Math.pow(10, -11)) / (Math.pow(1.496 * Math.pow(10, 11), 3));
 
         String name;
 
@@ -40,6 +37,7 @@ public class Body {
         // Physical properties
         double mass; //kg
         double radius;
+        
         //Color color;
         Image img;
         boolean isRinged;
@@ -51,9 +49,7 @@ public class Body {
         double parallaxAngle;
         double velX; //km/s
         double velY;
-        double delT = 0.1;
         double theta = 0.0;
-
 
         public Body(int id, double x, double y, double z, Body orbitBody, double radius, double mass, Image img, String name, boolean isRinged, Image ringImg) {
                 this.id = id;
@@ -75,60 +71,11 @@ public class Body {
                         this.orbitZ = orbitBody.z;
                         this.orbitMass = orbitBody.mass;
                 }
-
         }
 
-        //returns a Sphere3D object with the same coords as this body for drawing in the scene
-        // public Sphere3D createSphere() {
-        //   finalizePosition();
-        //   PhongMaterial material = new PhongMaterial(color);
-        //   return new Sphere3D(x, y, z, radius, material);
-        // }
-
         //update the x, y, z, for the body based on the gravitational forces from the other bodies
-        public void updatePosition(int iteration, ArrayList<Body> bodies) {
+        public void updatePosition(int iteration) {
                 if (id != 0) {
-                        //double sunMass = bodies.get(0).mass;
-                        //double theta = getTheta();
-
-                        //Method 1
-                        // double fx = (Math.pow(10.0, 11.0) * (1.0) * G * sunMass * mass * Math.cos(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
-                        // double fy = (Math.pow(10.0, 11.0) * (-1.0) * G * sunMass * mass * Math.sin(theta)) / Math.pow(distance(0.0, 0.0, x, y), 2.0);
-
-                        // double ax = fx / mass;
-                        // double ay = fy / mass;
-
-                        //Method 2
-                        // double mult = -1.0;
-                        // // if ((x < 0) && (y < 0)) mult = 1.0;
-                        //
-                        // double ax = Math.pow(10, 5) * ((mult) * G * orbitMass * Math.cos(theta)) / Math.pow(distance(orbitX, orbitY, orbitZ, x, y, z), 2.0);
-                        // double ay = Math.pow(10, 5) * ((mult) * G * orbitMass * Math.sin(theta)) / Math.pow(distance(orbitX, orbitY, orbitZ, x, y, z), 2.0);
-                        //
-                        // velX += ax;
-                        // velY += ay;
-                        //
-                        // newX += (Math.pow(10.0, 5.0)) * velX;
-                        // newY += (Math.pow(10.0, 5.0)) * velY;
-                        //
-                        // //update theta
-                        // double v = Math.sqrt(Math.pow(velX, 2) + Math.pow(velY, 2));
-                        // double angV = Math.pow(10, 5) * v / distance(0.0, 0.0, 0.0, newX, newY, newZ);
-                        // theta += angV;
-
-
-                        //Method 3
-                        // double velocity = Math.pow(10.0, 8) * Math.pow((G * sunMass) / orbitRadius, 0.5);
-                        //
-                        // double angVelocity = (velocity / orbitRadius);
-                        // double vX = velocity * Math.cos(theta);
-                        // double vY = velocity * Math.sin(theta);
-                        //
-                        // theta += angVelocity * delT;
-                        // newX += vX * delT;
-                        // newY += vY * delT;
-
-                        //Method 4
                         double velocity = Math.pow(10.0, 7) * Math.pow((G * orbitMass) / distance(orbitX, orbitY, orbitZ, x, y, z), 0.5);
                         double angVelocity = (velocity / distance(orbitX, orbitY, orbitZ, x, y, z));
 
@@ -136,27 +83,6 @@ public class Body {
 
                         newX = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.cos(theta);
                         newY = distance(orbitX, orbitY, orbitZ, x, y, z) * Math.sin(theta);
-
-
-                        if ((iteration % 5 == 0) && (id == 3)) {
-                                // System.out.println("FX: " + fx);
-                                // System.out.println("ax: " + ax);
-
-                                // System.out.println("x: " + x);
-                                // System.out.println("newX: " + newX);
-                                // System.out.println("newX(AU): " + mToAu(newX));
-                                // System.out.println("orbit radius: " + orbitRadius);
-                                // System.out.println("distance: " + distance(x, y, z, 0.0, 0.0, 0.0));
-                                // System.out.println("ax: " + ax);
-                                // System.out.println("ay: " + ay);
-                                System.out.println("velX: " + velX);
-                                System.out.println("velY: " + velY);
-                                System.out.println("X: " + mToAu(x));
-                                System.out.println("Y: " + mToAu(y));
-                                System.out.println("theta: " + theta);
-                                System.out.println("y/x: " +  y / x);
-                        }
-
                 }
         }
 
@@ -174,15 +100,6 @@ public class Body {
 
         public double distance(double x1, double y1, double x2, double y2) {
                 return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        }
-
-        public double getTheta() {
-                // double angle = Math.atan(y / x);
-                // // if (angle < 0.0) {
-                // //   angle += PI;
-                // // }
-                // return angle;
-                return Math.atan2(y, x);
         }
 
         public double mToAu(double km) {
