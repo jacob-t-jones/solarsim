@@ -43,6 +43,7 @@ public class Body {
         //Color color;
         Image img;
         boolean isRinged;
+        Image ringImg;
 
         // Orbit Information
         double period;
@@ -54,7 +55,7 @@ public class Body {
         double theta = 0.0;
 
 
-        public Body(int id, double x, double y, double z, Body orbitBody, double radius, double mass, Image img, String name, boolean isRinged) {
+        public Body(int id, double x, double y, double z, Body orbitBody, double radius, double mass, Image img, String name, boolean isRinged, Image ringImg) {
                 this.id = id;
                 this.x = x;
                 this.y = y;
@@ -67,6 +68,7 @@ public class Body {
                 this.newZ = this.z;
                 this.name = name;
                 this.isRinged = isRinged;
+                this.ringImg = ringImg;
                 if (orbitBody != null) {
                         this.orbitX = orbitBody.x;
                         this.orbitY = orbitBody.y;

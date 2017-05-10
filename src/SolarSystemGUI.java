@@ -14,7 +14,7 @@ import java.io.*;
 import javax.imageio.*;
 import javafx.scene.image.Image;
 
-public class SolarSystemGUI extends Application
+public class SolarSystemGUI extends Application 
 {
 
   public static void main(String[] args) {
@@ -35,8 +35,16 @@ public class SolarSystemGUI extends Application
 			e.printStackTrace();
 		}
 
-		draw3d.setBackgroundColor(Color.WHITE);
-    //draw3d.setShowAxes(false);
+		draw3d.setBackgroundColor(Color.BLACK);
+    draw3d.setShowAxes(false);
+
+    //Image bg = new Image("images/spaceBG.png");
+
+    // PhongMaterial pm = new PhongMaterial(bg);
+    // draw3d.setMaterial(pm);
+    // draw3d.POINT_LIGHT_1_X = 0.0;
+    // draw3d.POINT_LIGHT_1_Y = 0.0;
+    // draw3d.POINT_LIGHT_1_Z = 0.0;
 
 	}
 
