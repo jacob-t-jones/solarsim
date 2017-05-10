@@ -46,18 +46,21 @@ public class SolarSystem implements Algorithm {
 		Image saturnImg  = new Image("images/saturnmap.jpg");
 		Image uranusImg  = new Image("images/uranusmap.jpg");
 		Image neptuneImg = new Image("images/neptunemap.jpg");
+		Image plutoImg = new Image("images/plutomap1k.jpg");
+		Image satRingImg = new Image("images/saturn_ring.png");
+		Image uranusRingImg = new Image("image/uranus_ring");
 
 
 		sun     = new Body(00, 0.0,                      0.0, 0.0, null, 0.0,      1.989 * Math.pow(10, 30), sunImg,     "Sun",     false);
-		mercury = new Body(01, 5.790 * Math.pow(10, 10), 0.0, 0.0, sun,  2.4400 * Math.pow(10, 6),  3.302 * Math.pow(10, 23), mercuryImg, "Mercury", false);
-		venus   = new Body(02, 1.082 * Math.pow(10, 11), 0.0, 0.0, sun,  6.0540 * Math.pow(10, 6),  4.869 * Math.pow(10, 24), venusImg,   "Venus",   false);
-		earth   = new Body(03, 1.496 * Math.pow(10, 11), 0.0, 0.0, sun,  6.3780 * Math.pow(10, 6),  5.974 * Math.pow(10, 24), earthImg,   "Earth",   false);
-		mars    = new Body(04, 2.279 * Math.pow(10, 11), 0.0, 0.0, sun,  3.3960 * Math.pow(10, 6),  6.419 * Math.pow(10, 23), marsImg,    "Mars",    false);
-		jupiter = new Body(05, 7.783 * Math.pow(10, 11), 0.0, 0.0, sun,  7.1492 * Math.pow(10, 7), 1.899 * Math.pow(10, 27), jupiterImg, "Jupiter", false);
-		saturn  = new Body(06, 1.427 * Math.pow(10, 12), 0.0, 0.0, sun,  6.0286 * Math.pow(10, 7), 5.685 * Math.pow(10, 26), saturnImg,  "Saturn",  true);
-		uranus  = new Body(07, 2.871 * Math.pow(10, 12), 0.0, 0.0, sun,  2.5557 * Math.pow(10, 7), 8.685 * Math.pow(10, 25), uranusImg,  "Uranus",  false);
-		neptune = new Body(08, 4.497 * Math.pow(10, 12), 0.0, 0.0, sun,  2.4766 * Math.pow(10, 7), 1.024 * Math.pow(10, 26), neptuneImg, "Neptune", false);
-    pluto   = new Body(09, 5.906 * Math.pow(10, 12), 0.0, 0.0, sun,  1.1850 * Math.pow(10, 6),  1.460 * Math.pow(10, 22), plutoImg,   "Pluto",   false);
+		mercury = new Body(01, 5.790 * Math.pow(10, 10), 0.0, 0.0, sun,  2.4400 * Math.pow(10, 6),  3.302 * Math.pow(10, 23), mercuryImg, "Mercury", false, null);
+		venus   = new Body(02, 1.082 * Math.pow(10, 11), 0.0, 0.0, sun,  6.0540 * Math.pow(10, 6),  4.869 * Math.pow(10, 24), venusImg,   "Venus",   false, null);
+		earth   = new Body(03, 1.496 * Math.pow(10, 11), 0.0, 0.0, sun,  6.3780 * Math.pow(10, 6),  5.974 * Math.pow(10, 24), earthImg,   "Earth",   false, null);
+		mars    = new Body(04, 2.279 * Math.pow(10, 11), 0.0, 0.0, sun,  3.3960 * Math.pow(10, 6),  6.419 * Math.pow(10, 23), marsImg,    "Mars",    false, null);
+		jupiter = new Body(05, 7.783 * Math.pow(10, 11), 0.0, 0.0, sun,  7.1492 * Math.pow(10, 7), 1.899 * Math.pow(10, 27), jupiterImg, "Jupiter", false, null);
+		saturn  = new Body(06, 1.427 * Math.pow(10, 12), 0.0, 0.0, sun,  6.0286 * Math.pow(10, 7), 5.685 * Math.pow(10, 26), saturnImg,  "Saturn",  true, satRingImg);
+		uranus  = new Body(07, 2.871 * Math.pow(10, 12), 0.0, 0.0, sun,  2.5557 * Math.pow(10, 7), 8.685 * Math.pow(10, 25), uranusImg,  "Uranus",  true, uranusRingImg);
+		neptune = new Body(08, 4.497 * Math.pow(10, 12), 0.0, 0.0, sun,  2.4766 * Math.pow(10, 7), 1.024 * Math.pow(10, 26), neptuneImg, "Neptune", false, null);
+    pluto   = new Body(09, 5.906 * Math.pow(10, 12), 0.0, 0.0, sun,  1.1850 * Math.pow(10, 6),  1.460 * Math.pow(10, 22), plutoImg,   "Pluto",   false, null);
                 // moon    = new Body(10,
 
 
@@ -112,10 +115,7 @@ public class SolarSystem implements Algorithm {
 			if (b.isRinged) {
 				PhongMaterial mat = new PhongMaterial();
 				//System.out.println("Adding rings");
-				Image i1 = new Image("images/saturn_ring.png");
-				mat.setDiffuseMap(i1);
-				mat.setSpecularMap(i2);
-				Image i2 = new Image("images/saturnmap.jpg");
+				mat.setDiffuseMap(b.ringImg);
 				Cylinder3D ring = new Cylinder3D(pX, pY, pZ, 2.0 * b.radius, 0.05, mat);
 				drawBodies.add(ring);
 			}
@@ -124,7 +124,7 @@ public class SolarSystem implements Algorithm {
 
 		}
 
-		Object[] drawing = new Object[drawBodies.size()];
+		Object[] drawBodyArray = new Object[drawBodies.size()];
 		drawBodyArray = drawBodies.toArray();
 
 		return drawBodyArray;

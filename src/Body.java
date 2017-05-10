@@ -41,6 +41,7 @@ public class Body {
   double radius;
   //Color color;
   Image img;
+  Image ringImg;
   boolean isRinged;
 
   // Orbit Information
@@ -53,7 +54,7 @@ public class Body {
   double theta = 0.0;
 
 
-  public Body(int id, double x, double y, double z, Body orbitBody, double radius, double mass, Image img, String name, boolean isRinged) {
+  public Body(int id, double x, double y, double z, Body orbitBody, double radius, double mass, Image img, String name, boolean isRinged, Image ringImg) {
     this.id = id;
     this.x = x;
     this.y = y;
@@ -66,6 +67,7 @@ public class Body {
     this.newZ = this.z;
     this.name = name;
     this.isRinged = isRinged;
+    this.ringImg = ringImg;
     if (orbitBody != null) {
       this.orbitX = orbitBody.x;
       this.orbitY = orbitBody.y;
@@ -84,7 +86,7 @@ public class Body {
 
   //update the x, y, z, for the body based on the gravitational forces from the other bodies
   public void updatePosition(int iteration, ArrayList<Body> bodies) {
-    if (id != 0) {
+    if (orbitBody != null) {
       //double sunMass = bodies.get(0).mass;
       //double theta = getTheta();
 
